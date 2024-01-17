@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
+
+<head>
+    <title>Bienvenidos a RecompensaEduca</title>  
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Overpass&display=swap" rel="stylesheet">
+    <link th:href="@{/css/loginstyle.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div layout:fragment="pagina">
+        <div class='card w-90'>
+            <div id="contenedor">
+                <div id="central">
+                    <div id="login">
+                        <div class="titulo">
+                            <h4>
+                                RecompensaEduca
+                            </h4>
+                            <br/>
+                            <img th:src="@{/images/recompensa.png}" width="80px" height="80px" alt="">
+                        </div>
+                        <form th:action="@{/perform_login}" th:method="POST">
+                            <label for="username">Nombre de usuario:</label>
+                            <input type="text" name="username" placeholder="Usuario" required>
+
+                            <label for="username">Contraseña:</label>
+                            <input type="password" name="password" placeholder="Contraseña" required>
+                            <button type="submit" title="Ingresar">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

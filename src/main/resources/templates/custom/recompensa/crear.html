@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/layout}">
+
+<head>
+      <title>Crear</title>
+</head>
+<body>
+      <div layout:fragment="pagina">
+            <div class='card w-90'>
+                  <div class="panel-heading"
+                      style="background-color: #0D6EFD; justify-content: left;display: flex;align-items: center; height: 60px;">
+                      <h3 class="panel-title center" style="color:white">
+                          &nbsp;&nbsp;<i class="bi bi-card-list"></i> Crear Recompensa</h3>
+                  </div>
+                  <div class="col-md-6 text-center">
+                      <div class="md-form md-outline">
+                          <a class="btn btn-info mb-2" style="float: left; margin-top: 10px;margin-left: 10px;" th:href="@{/recompensa/listar}"><i class="bi bi-skip-backward-fill"></i>Volver</a>
+                      </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class='card-body'>
+                          <form th:action="@{/recompensa/crear}" th:object="${recompensa}" th:method="POST">
+                            <div class='card w-90'>
+                                <div class="col-md-12">
+                                    <div class='card-body'>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="md-form md-outline">
+                                                    <label class="upper" for="nombre">
+                                                        <h6><strong>Nombre</strong></h6>
+                                                    </label>
+                                                    <input type="text" class="form-control" th:field="*{nombre}">
+                                                    <p th:if="${error_nombre}" style="color:red" th:text="${error_nombre}">Nombre Error</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="md-form md-outline">
+                                                    <label class="upper" for="descripcion">
+                                                        <h6><strong>Descripcion</strong></h6>
+                                                    </label>
+                                                    <input type="text" class="form-control" th:field="*{descripcion}">
+                                                    <p th:if="${error_descripcion}" style="color:red" th:text="${error_descripcion}">Descipcion Error</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="md-form md-outline">
+                                                    <label class="upper" for="puntaje">
+                                                        <h6><strong>Puntaje</strong></h6>
+                                                    </label>
+                                                    <input type="text" class="form-control" th:field="*{puntaje}">
+                                                    <p th:if="${error_puntaje}" style="color:red" th:text="${error_puntaje}">Puntaje Error</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-md-6 text-center">
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="bi bi-send-check"></i>
+                                                    Crear
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+      </div>
+</body>
+</html>

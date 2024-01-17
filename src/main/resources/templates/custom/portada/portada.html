@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
+
+<head>
+    <title>Bienvenido a RecompensaEduca</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+
+<body>
+    <div layout:fragment="pagina">
+        <div class='card w-90'>
+            <div class="panel-heading"
+                style="background-color: #0D6EFD; justify-content: left;display: flex;align-items: center; height: 60px;">
+                <h3 class="panel-title center" style="color:white">
+                    &nbsp;&nbsp;<i class="bi bi-card-list"></i> RecompensaEduca</h3>
+            </div>
+            <div class="col-md-12">
+                <div class='card-body'>
+                    <div class="table-responsive">
+                        <p>
+                            RecompensaEduca es una plataforma innovadora diseñada para mejorar la convivencia escolar a través de un sistema de recompensas y tecnología de punta. Esta herramienta digital busca fomentar comportamientos positivos en los estudiantes, incentivando su participación activa en un entorno escolar saludable y colaborativo. Mediante el análisis de datos y un sistema de feedback en tiempo real, RecompensaEduca proporciona a los educadores y administradores escolares una perspectiva valiosa sobre la dinámica de convivencia, permitiendo intervenciones proactivas y adaptativas. La seguridad y privacidad de los datos son pilares fundamentales de esta solución, asegurando un entorno de confianza y respeto para todos los usuarios.
+                        </p>
+                    </div>
+                    <div th:if="${nombrePerfil} == 'administrador'" class="d-flex justify-content-center mt-4">
+                        <div class="card" style="max-width: 600px;"> <!-- Añade un ancho máximo al contenedor de la tarjeta -->
+                            <div class="card-body">
+                                <div id="grafico_pie"></div>
+                            </div>
+                        </div>
+                    </div>                                                          
+                </div>
+            </div>
+        </div>
+        <script th:if="${nombrePerfil} == 'administrador'" th:inline="javascript"> 
+            /*<![CDATA[*/
+            let respeto = [[${metrica.respeto}]];
+            let inclusion = [[${metrica.inclusion}]];
+            let resolucion = [[${metrica.resolucion}]];
+            let participacionDemocratica = [[${metrica.participacionDemocratica}]];
+            let participacionClases = [[${metrica.participacionClases}]];
+            var options = {
+                series: [respeto, inclusion, resolucion, participacionDemocratica, participacionClases],
+                chart: {
+                    type: 'pie',
+                    width: '100%', // Usa el 100% del ancho del contenedor
+                },
+                labels: ['Respeto','Inclusión','Resolución dialogada','Participación democrática','Participación en clases'],
+                responsive: [
+                    {
+                        breakpoint: 1440, // Punto de interrupción para pantallas grandes (como monitores de escritorio)
+                        options: {
+                            chart: {
+                                width: 600 // Tamaño máximo para pantallas grandes
+                            }
+                        }
+                    },
+                    {
+                        breakpoint: 768, // Punto de interrupción para tabletas y pantallas más pequeñas
+                        options: {
+                            chart: {
+                                width: 500 // Tamaño para tabletas y pantallas más pequeñas
+                            }
+                        }
+                    },
+                    {
+                        breakpoint: 480, // Punto de interrupción para teléfonos móviles
+                        options: {
+                            chart: {
+                                width: 300 // Tamaño mínimo para teléfonos móviles
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                ]
+            };
+            
+            var chart = new ApexCharts(document.querySelector("#grafico_pie"), options);
+            chart.render();   
+            /*]]>*/                     
+        </script>
+    </div>
+</body>
+
+</html>

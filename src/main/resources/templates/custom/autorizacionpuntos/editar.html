@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/layout}">
+
+    <head>
+        <title>Editar</title>
+    </head>
+    <body>
+        <div layout:fragment="pagina">
+            <div class='card w-90'>
+                <div class="panel-heading"
+                    style="background-color: #0D6EFD; justify-content: left;display: flex;align-items: center; height: 60px;">
+                    <h3 class="panel-title center" style="color:white">
+                    &nbsp;&nbsp;<i class="bi bi-card-list"></i> Puntaje para: &nbsp;&nbsp;<h3 style="color:white" th:text="${nombreEstudiante}"></h3></h3>
+                </div>
+                <div class="col-md-6 text-center">
+                    <div class="md-form md-outline">
+                        <a class="btn btn-info mb-2" style="float: left; margin-top: 10px;margin-left: 10px;" th:href="@{/autorizacionpuntos/listar}"><i class="bi bi-skip-backward-fill"></i>Volver</a>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                  <div class='card-body'>
+                      <form th:action="@{/autorizacionpuntos/editar/} + ${id}" th:object="${transaccion}" th:method="PUT">
+                        <div class='card w-90'>
+                            <div class="col-md-12">
+                                <div class='card-body'>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="md-form md-outline">
+                                                <label class="upper" for="detalle">
+                                                    <h6><strong>Detalle</strong></h6>
+                                                </label>
+                                                <textarea class="form-control" th:field="*{detalle}"></textarea>
+                                                <p th:if="${error_detalle}" style="color:red" th:text="${error_detalle}">Detalle Error</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="md-form md-outline">
+                                                <label class="upper" for="validado">
+                                                    <h6><strong>Validar</strong></h6>
+                                                </label>
+                                                <select class="form-select" th:field="*{validado}">
+                                                    <option value="1">Sí</option>
+                                                    <option value="2">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-6 text-center">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="bi bi-send-check"></i>
+                                                Enviar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

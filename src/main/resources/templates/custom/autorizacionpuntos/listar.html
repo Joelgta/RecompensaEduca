@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
+
+<head>
+    <title>Listar</title>
+</head>
+
+<body>
+    <div layout:fragment="pagina">
+        <div class='card w-90'>
+            <div class="panel-heading"
+                style="background-color: #0D6EFD; justify-content: left;display: flex;align-items: center; height: 60px;">
+                <h3 class="panel-title center" style="color:white">
+                    &nbsp;&nbsp;<i class="bi bi-card-list"></i>Lista de autorizaciones</h3>
+            </div>
+            <div class="col-md-12">
+                <div class='card-body'>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre Estudiante</th>
+                                    <th scope="col">Curso</th>
+                                    <th th:if="${nombrePerfil} == 'administrador'" scope="col">Nombre Docente</th>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">Concepto</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="estudiante, index : ${estudiantes}">
+                                    <td th:text="${index.index + 1}"></td>
+                                    
+                                    <td th:if="${transacciones[index.index].validado} == 0 and ${nombrePerfil} == 'administrador'">
+                                        <a th:href="@{/autorizacionpuntos/editar/} + ${transacciones[index.index].id}" th:text="${estudiante.nombre} + ' ' + ${estudiante.apellidoPaterno} + ' ' + ${estudiante.apellidoMaterno}"></a>
+                                    </td>
+                                    
+                                    <td th:if="${transacciones[index.index].validado} != 0 and ${nombrePerfil} == 'administrador'" th:text="${estudiante.nombre} + ' ' + ${estudiante.apellidoPaterno} + ' ' + ${estudiante.apellidoMaterno}"></td>
+                                    
+                                    <td th:if="${nombrePerfil} == 'docente'" th:text="${estudiante.nombre} + ' ' + ${estudiante.apellidoPaterno} + ' ' + ${estudiante.apellidoMaterno}"></td>
+                                    
+                                    <td th:text="${estudiante.curso.nombreCurso}"></td>
+                                    
+                                    <td th:if="${nombrePerfil} == 'administrador'" th:text="${transacciones[index.index].personal.nombre} + ' ' + ${transacciones[index.index].personal.apellidoPaterno} + ' ' + ${transacciones[index.index].personal.apellidoMaterno}"></td>
+                                    
+                                    <td th:text="${transacciones[index.index].detalle}"></td>
+
+                                    <td th:text="${conceptos[transacciones[index.index].concepto.id - 1].nombre}"></td>
+                                    
+                                    <td th:text="${transacciones[index.index].actualizadoEn}"></td>
+                                    
+                                    <td th:if="${transacciones[index.index].validado} == 0">
+                                        <button class="btn btn-secondary"><i class="bi bi-circle-fill"></i></button>
+                                    </td>                                    
+                                    
+                                    <td th:if="${transacciones[index.index].validado} == 1">
+                                        <button class="btn btn-primary"><i class="bi bi-check-circle-fill"></i></button>
+                                    </td>                                    
+                                    
+                                    <td th:if="${transacciones[index.index].validado} == 2">
+                                        <button class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
+                                    </td>                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

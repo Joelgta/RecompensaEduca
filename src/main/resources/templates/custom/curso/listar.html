@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
+
+<head>
+    <title>Listar</title>
+</head>
+
+<body>
+    <div layout:fragment="pagina">
+        <div class='card w-90'>
+            <div class="panel-heading"
+                style="background-color: #0D6EFD; justify-content: left;display: flex;align-items: center; height: 60px;">
+                <h3 class="panel-title center" style="color:white">
+                    &nbsp;&nbsp;<i class="bi bi-card-list"></i>Lista de cursos</h3>
+            </div>
+            <div class="col-md-12">
+                <div class='card-body'>
+                    <a class="btn btn-success mb-2" th:href="@{/curso/crear}"><i class="bi bi-node-plus"></i>Agregar</a>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Tipo Enseñanza</th>
+                                    <th scope="col">Grado</th>
+                                    <th scope="col">Letra</th>
+                                    <th scope="col">Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="curso, index : ${cursos}">
+                                    <td th:text="${index.index + 1}"></td>
+                                    <td th:text="${curso.nombreCurso}"></td>
+                                    <td th:text="${curso.tipoEnsenanza}"></td>
+                                    <td th:text="${curso.grado}"></td>
+                                    <td th:text="${curso.letra}"></td>
+                                    <td>
+                                        <form th:action="@{/curso/} + ${curso.id}" th:method="DELETE">
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                              </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

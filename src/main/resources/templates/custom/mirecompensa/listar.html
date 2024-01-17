@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
+
+<head>
+    <title>Listar</title>
+</head>
+
+<body>
+    <div layout:fragment="pagina">
+        <div class='card w-90'>
+            <div class="panel-heading"
+                style="background-color: #0D6EFD; justify-content: left;display: flex;align-items: center; height: 60px;">
+                <h3 class="panel-title center" style="color:white">
+                    &nbsp;&nbsp;<i class="bi bi-card-list"></i>Lista de recompensas</h3>
+            </div>
+            <div class="col-md-12">
+                <div class='card-body'>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="miRecompensa, index : ${misRecompensas}">
+                                    <td th:text="${index.index + 1}"></td>
+                                    <td th:text="${miRecompensa.recompensa.nombre}"></td>
+                                    <td th:text="${miRecompensa.recompensa.descripcion}"></td>
+                                    <td th:if="${miRecompensa.canjeado} == 1">Canjeado</td>
+                                    <td th:if="${miRecompensa.canjeado} == 0">Por Canjear</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/layout}">
+
+    <head>
+        <title>Editar</title>
+    </head>
+    <body>
+        <div layout:fragment="pagina">
+            <div class='card w-90'>
+                <div class="panel-heading"
+                    style="background-color: #0D6EFD; justify-content: left;display: flex;align-items: center; height: 60px;">
+                    <h3 class="panel-title center" style="color:white">
+                    &nbsp;&nbsp;<i class="bi bi-card-list"></i>Editar Personal</h3>
+                </div>
+                <div class="col-md-6 text-center">
+                    <div class="md-form md-outline">
+                        <a class="btn btn-info mb-2" style="float: left; margin-top: 10px;margin-left: 10px;" th:href="@{/personal/listar}"><i class="bi bi-skip-backward-fill"></i>Volver</a>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                  <div class='card-body'>
+                      <form th:action="@{/personal/editar/} + ${id}" th:object="${personal}" th:method="PUT">
+                        <div class='card w-90'>
+                            <div class="col-md-12">
+                                <div class='card-body'>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="md-form md-outline">
+                                                <label class="upper" for="rut">
+                                                    <h6><strong>Rut</strong></h6>
+                                                </label>
+                                                <input type="text" class="form-control" th:field="*{rut}">
+                                                <p th:if="${error_rut}" style="color:red" th:text="${error_rut}">Rut Error</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="md-form md-outline">
+                                                <label class="upper" for="nombre">
+                                                    <h6><strong>Nombre</strong></h6>
+                                                </label>
+                                                <input type="text" class="form-control" th:field="*{nombre}">
+                                                <p th:if="${error_nombre}" style="color:red" th:text="${error_nombre}">Nombre Error</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="md-form md-outline">
+                                                <label class="upper" for="apellidoPaterno">
+                                                    <h6><strong>Apellido Paterno</strong></h6>
+                                                </label>
+                                                <input type="text" class="form-control" th:field="*{apellidoPaterno}">
+                                                <p th:if="${error_apellidoPaterno}" style="color:red" th:text="${error_apellidoPaterno}">ApellidoPaterno Error</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="md-form md-outline">
+                                                <label class="upper" for="apellidoMaterno">
+                                                    <h6><strong>Apellido Materno</strong></h6>
+                                                </label>
+                                                <input type="text" class="form-control" th:field="*{apellidoMaterno}">
+                                                <p th:if="${error_apellidoMaterno}" style="color:red" th:text="${error_apellidoMaterno}">ApellidoMaterno Error</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="md-form md-outline">
+                                                <label class="upper" for="nombreUsuario">
+                                                    <h6><strong>Nombre usuario</strong></h6>
+                                                </label>
+                                                <input type="text" class="form-control" th:field="*{nombreUsuario}">
+                                                <p th:if="${error_nombreUsuario}" style="color:red" th:text="${error_nombreUsuario}">Nombre usuario Error</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="md-form md-outline">
+                                                <label class="upper" for="contrasena">
+                                                    <h6><strong>Contraseña</strong></h6>
+                                                </label>
+                                                <input type="password" placeholder="Escribe para cambiar la contraseña" class="form-control" th:field="*{contrasena}">
+                                                <p th:if="${error_contrasena}" style="color:red" th:text="${error_contrasena}">Contraseña Error</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="md-form md-outline">
+                                                <label class="upper" for="perfilId">
+                                                    <h6><strong>Perfil</strong></h6>
+                                                </label>
+                                                <select class="form-select" th:field="*{perfilId}">
+                                                    <div th:each="perfil : ${perfiles}">
+                                                        <option th:if="${perfil.nombre} != 'estudiante'"
+                                                            th:value="${perfil.id}"
+                                                            th:text="${perfil.nombre}">
+                                                        </option>
+                                                    </div>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="md-form md-outline">
+                                                <label class="upper" for="colegio">
+                                                    <h6><strong>Colegio</strong></h6>
+                                                </label>
+                                                <select class="form-select" th:field="*{colegio}">
+                                                    <div th:each="colegio : ${colegios}">
+                                                        <option 
+                                                            th:value="${colegio.id}"
+                                                            th:text="${colegio.nombre}">
+                                                        </option>
+                                                    </div>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-6 text-center">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="bi bi-send-check"></i>
+                                                Enviar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

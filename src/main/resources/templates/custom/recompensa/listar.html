@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
+
+<head>
+    <title>Listar</title>
+</head>
+
+<body>
+    <div layout:fragment="pagina">
+        <div class='card w-90'>
+            <div class="panel-heading"
+                style="background-color: #0D6EFD; justify-content: left;display: flex;align-items: center; height: 60px;">
+                <h3 class="panel-title center" style="color:white">
+                    &nbsp;&nbsp;<i class="bi bi-card-list"></i>Lista de recompensas</h3>
+            </div>
+            <div class="col-md-12">
+                <div class='card-body'>
+                    <a th:if="${nombrePerfil} == 'administrador'" class="btn btn-success mb-2" th:href="@{/recompensa/crear}"><i class="bi bi-node-plus"></i>Agregar</a>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripcion</th>
+                                    <th scope="col">Puntaje</th>
+                                    <th th:if="${nombrePerfil} == 'administrador'" scope="col">Editar</th>
+                                    <th th:if="${nombrePerfil} == 'administrador'" scope="col">Eliminar</th>
+                                    <th th:if="${nombrePerfil} == 'estudiante'" scope="col">Canjear</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="recompensa, index : ${recompensas}">
+                                    <td th:text="${index.index + 1}"></td>
+                                    <td th:text="${recompensa.nombre}"></td>
+                                    <td th:text="${recompensa.descripcion}"></td>
+                                    <td th:text="${recompensa.puntaje}"></td>
+                                    <td th:if="${nombrePerfil} == 'estudiante'">
+                                        <form th:action="@{/canjearrecompensa/} + ${recompensa.id} + '/' + ${nombreUsuario}" th:method="POST">
+                                            <button type="submit" class="btn btn-secondary">
+                                                <i class="bi bi-cart-fill"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td th:if="${nombrePerfil} == 'administrador'">
+                                        <a class="btn btn-secondary" th:href="@{/recompensa/editar/} + ${recompensa.id}"><i class="bi bi-pencil-fill"></i></a>
+                                    </td>
+                                    <td th:if="${nombrePerfil} == 'administrador'">
+                                        <form th:action="@{/recompensa/} + ${recompensa.id}" th:method="DELETE">
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                              </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
