@@ -22,7 +22,7 @@ public interface PuntajeTransaccionesRepository extends CrudRepository<PuntajeTr
        "SUM(CASE WHEN pt.concepto = 3 THEN 1 ELSE 0 END) AS resolucion, " +
        "SUM(CASE WHEN pt.concepto = 4 THEN 1 ELSE 0 END) AS participacion_democratica, " +
        "SUM(CASE WHEN pt.concepto = 5 THEN 1 ELSE 0 END) AS participacion_clases " +
-       "FROM PuntajeTransaccionesModel pt")
+       "FROM PuntajeTransaccionesModel pt WHERE pt.validado = 1")
     public Object findMetricaGlobal();
 
     public List<PuntajeTransaccionesModel> findAllByOrderByValidadoAscPersonal_ApellidoPaternoAsc();
